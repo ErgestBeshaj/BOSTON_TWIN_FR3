@@ -461,6 +461,7 @@ class BostonTwin:
         load : bool, optional
             Load the scene as current scene. Defaults to False.
         """
+
         radius = np.sqrt(2) * side_m  # m
         azimuths = [45, 225]
 
@@ -468,6 +469,10 @@ class BostonTwin:
         lon1, lat1, _ = geod.fwd(center_lon, center_lat, azimuths[0], radius)
         lon2, lat2, _ = geod.fwd(center_lon, center_lat, azimuths[1], radius)
         bbox = [lon1, lat1, lon2, lat2]
+
+        geojson_path = self.boston_model_path.joinpath("boston.geojson")
+
+
         print("Selecting models within the area...")
         t0 = time.time()
         boston_gdf = gpd.GeoDataFrame.from_file(
